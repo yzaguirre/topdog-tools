@@ -23,9 +23,10 @@ Conseguir `connect`, especificado en `package.json`
 $ npm update
 ```
 Recibe el directorio como argumento. Puede ser una dirección absoluto o relativo.
+
 Uso en *NIX: Requiere de usuario `root`, dado que ocupa el puerto tcp 80
 ```Bash
-$ su -
+$ su
 ./webserver.js /tmp
 ```
 Uso en Windows:
