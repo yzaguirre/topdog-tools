@@ -1,10 +1,8 @@
 function webserver([string]$rootdirectory){
-        cd "C:\Users\David\AeroFS\web" # Script location
         if ($PSBoundParameters.ContainsKey('rootdirectory')){
-                node server.js $rootdirectory
+                node C:\topdog-tools\webserver\webserver.js $rootdirectory
         } else {
-                echo "Listing contents of AeroFS\web"
-                ls
+                echo "Must specify an absolute o relative path."
         }
 }
 
