@@ -2,7 +2,7 @@ function webserver([string]$rootdirectory){
         if ($PSBoundParameters.ContainsKey('rootdirectory')){
                 node C:\topdog-tools\webserver\webserver.js $rootdirectory
         } else {
-                echo "Must specify an absolute o relative path."
+                echo "Must specify an absolute or relative path."
         }
 }
 
