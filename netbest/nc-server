@@ -1,10 +1,12 @@
 #!/bin/bash
 # https://stackoverflow.com/questions/2489856/piping-a-bash-variable-into-awk-and-storing-the-output
+echo Waiting for filename
 name="$(ncat -l -p 55556)"
-if [ $name -eq "0" ]; then
+# https://stackoverflow.com/questions/4277665/bash-how-do-i-compare-two-string-variables-in-an-if-statement
+if [ "$name" == "D" ]; then
  echo Client has CANCELLED the transfer!
 else
- echo Recieved filename: $name
+ echo Recieving filename: $name
  #netcat -l -p 55556 | pv -t > ~/downloads/"$name"
  ncat -l -p 55556 | pv -t > ~/downloads/"$name"
 fi
