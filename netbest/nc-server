@@ -1,0 +1,10 @@
+#!/bin/bash
+# https://stackoverflow.com/questions/2489856/piping-a-bash-variable-into-awk-and-storing-the-output
+name="$(ncat -l -p 55556)"
+if [ $name -eq "0" ]; then
+ echo Client has CANCELLED the transfer!
+else
+ echo Recieved filename: $name
+ #netcat -l -p 55556 | pv -t > ~/downloads/"$name"
+ ncat -l -p 55556 | pv -t > ~/downloads/"$name"
+fi
