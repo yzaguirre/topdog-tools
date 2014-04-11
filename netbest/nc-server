@@ -1,12 +1,19 @@
 #!/bin/bash
 # https://stackoverflow.com/questions/2489856/piping-a-bash-variable-into-awk-and-storing-the-output
-echo Waiting for filename
+echo Waiting for client
 name="$(ncat -l -p 55556)"
+PORT=55556
 # https://stackoverflow.com/questions/4277665/bash-how-do-i-compare-two-string-variables-in-an-if-statement
 if [ "$name" == "D" ]; then
  echo Client has CANCELLED the transfer!
 else
- echo Recieving filename: $name
- #netcat -l -p 55556 | pv -t > ~/downloads/"$name"
- ncat -l -p 55556 | pv -t > ~/downloads/"$name"
+	TYPE=${name::1} # obtain first caracter from name
+	name=${name:1} # remove first caracter from name
+	echo Client has responded with: $name
+	if [ $TYPE == "d" ]; then
+		ncat -l -p $PORT | pv -t | tar xvf - # tar file
+	else
+		ncat -l -p $PORT | pv -t > "$name" # obviously a regular file
+	fi
+ #netcat -l -p $PORT | pv -t > ~/downloads/"$name"
 fi
