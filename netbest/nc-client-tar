@@ -1,0 +1,6 @@
+#!/bin/bash
+# Sends tar.gz files
+name="$1"
+recipient=$2
+PORT=55556
+cat "$name" | pv -b | ncat --send-only $recipient $PORT
