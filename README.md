@@ -5,14 +5,17 @@ Una colección de scripts python, node.js, powershell, bash, etc.
 netbest
 ====
 Transferencia de ficheros via LAN en plano utilizando `ncat` (requiere `nmap`, compatible con `netcat` via ligera modificacion)
+
 Habilitar puerto tcp 55556 INBOUND
-Servidor
+
+Uso como Servidor (espera recibir archivos)
 ```
 nc-server
 ```
-Cliente
+Uso como Cliente (envia archivos)
 ```
 nc-client pelicula-yify.mp4 computadora-escritorio.local
+nc-client pelicula-yify.mp4 192.168.0.6
 ```
 alec
 ====
