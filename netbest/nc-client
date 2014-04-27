@@ -13,13 +13,13 @@ if [ -f "$name" ]; then
  #cat "$name" | pv -b | netcat $recipient 
 else
  if [ -d "$name" ]; then
- 	name=${name%/} # remove any pesky trailing slash
+ 	name="${name%/}" # remove any pesky trailing slash
  	echo d${name} | ncat --send-only $recipient $PORT
  	stty -echo
  	read -n1 -r -p "Press any key to start transfer..." key
  	stty echo
  	echo 
- 	tar cvf - ${name} | pv -b | ncat --send-only $recipient $PORT
+ 	tar cvf - "${name}" | pv -b | ncat --send-only $recipient $PORT
  else
  	echo File "${name}" doesn\'t exist!
  	echo D | ncat --send-only $recipient $PORT

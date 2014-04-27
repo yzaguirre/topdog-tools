@@ -8,7 +8,7 @@ if [ "$name" == "D" ]; then
  echo Client has CANCELLED the transfer!
 else
 	TYPE=${name::1} # obtain first caracter from name
-	name=${name:1} # remove first caracter from name
+	name="${name:1}" # remove first caracter from name
 	echo Client has responded with: $name
 	if [ $TYPE == "d" ]; then
 		ncat -l -p $PORT | pv -t | tar xvf - # tar file
