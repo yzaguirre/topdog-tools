@@ -1,0 +1,11 @@
+#!/bin/bash
+filename=~pi/downloads/yt-me.txt
+TMP=~pi/tmp
+cd $TMP
+while read -r line
+do
+    /usr/local/bin/youtube-dl -f 18 $line -c
+done < "$filename"
+mv *mp4 ~pi/videos/mobile
+cd -
+mv $filename ~pi/documents/past_dl/yt-me_`date +'%F_%H.%M.%S'`.txt

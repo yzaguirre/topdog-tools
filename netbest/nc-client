@@ -1,27 +1,20 @@
 #!/bin/bash
-name="$1"
-recipient=$2
+recipient=$1
+shift 1
+name="$@"
 PORT=55556
-if [ -f "$name" ]; then
+if [ "$#" == "1" ] && [ -f "$name" ]; then
  echo f${name} | ncat --send-only $recipient $PORT
- # https://stackoverflow.com/questions/92802/what-is-the-linux-equivalent-to-dos-pause
  stty -echo
  read -n1 -r -p "Press any key to start transfer..." key
  stty echo
- echo 
+ echo
  cat "$name" | pv -b | ncat --send-only $recipient $PORT
- #cat "$name" | pv -b | netcat $recipient 
 else
- if [ -d "$name" ]; then
- 	name="${name%/}" # remove any pesky trailing slash
- 	echo d${name} | ncat --send-only $recipient $PORT
- 	stty -echo
- 	read -n1 -r -p "Press any key to start transfer..." key
- 	stty echo
- 	echo 
- 	tar cvf - "${name}" | pv -b | ncat --send-only $recipient $PORT
- else
- 	echo File "${name}" doesn\'t exist!
- 	echo D | ncat --send-only $recipient $PORT
- fi
+ echo d${name} | ncat --send-only $recipient $PORT
+ stty -echo
+ read -n1 -r -p "Press any key to start transfer..." key
+ stty echo
+ echo
+ tar cvf - -- ${name} | pv -b | ncat --send-only $recipient $PORT
 fi

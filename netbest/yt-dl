@@ -1,8 +1,0 @@
-#!/bin/bash
-# get youtube-dl tool at https://github.com/rg3/youtube-dl
-filename=yt.txt
-
-while read -r line
-do
-    youtube-dl --max-quality mp4 -f 22/18 $line
-done < "$filename"

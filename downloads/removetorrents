@@ -1,0 +1,13 @@
+#!/usr/bin/env python
+# 1 0 * * * /usr/local/bin/removetorrents.py > /home/pi/downloads/log-tr.log 2> /home/pi/downloads/error-tr.log
+import transmissionrpc
+
+tc = transmissionrpc.Client(address='raspberrypi.local', port=9091, user='pi', password='')
+torrents = tc.get_torrents()
+for torrent in torrents:
+  if torrent.percentDone >= 1:
+  # if torrent.status == 'seeding':
+    print "Removed from queue \"" + torrent.name + "\" (" + str(torrent.totalSize/1000000.0) + " MB). Date Started: " + torrent.date_started.ctime() + ", Date Finished: " + torrent.date_done.ctime()
+    tc.remove_torrent(torrent.id, delete_data=False, timeout=None)
+  else:
+    print "Torrent \"" + torrent.name + "\" (" + str(torrent.totalSize/1000000.0) + " MB) has not finished download. Size left: " + str(torrent.leftUntilDone/1000000.0) + " MB."

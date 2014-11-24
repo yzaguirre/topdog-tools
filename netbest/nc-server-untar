@@ -1,4 +1,4 @@
 #!/bin/bash
 # Uncompress tar.gz file to CWD
 PORT=55556
-ncat -l -p $PORT | pv -t | tar xvzf - # tar file
+ncat -lp $PORT | pv -t | tar xvzf - # tar file

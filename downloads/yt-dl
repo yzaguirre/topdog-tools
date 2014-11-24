@@ -1,0 +1,7 @@
+#!/bin/bash
+filename=yt.txt
+
+while read -r line
+do
+  /usr/local/bin/youtube-dl --max-quality mp4 $line
+done < "$filename"
