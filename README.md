@@ -14,13 +14,13 @@ nc-server
 ```
 Uso como Cliente (envia archivos)
 ```
-nc-client pelicula-yify.mp4 computadora-escritorio.local
-nc-client pelicula-yify.mp4 192.168.0.6
+nc-client destino.local file.mp4
+nc-client 192.168.0.6 file.mp4
 ```
 alec
 ====
 
-Asistente para CUP and JFlex escrito en python3. 
+Asistente para CUP and JFlex escrito en python3.
 webserver
 ====
 Servidor Web de ficheros estáticos de un directorio.
@@ -31,7 +31,7 @@ $ cd topdog-tools/webserver/
 ```
 Ejecutable para todo usuario NIX
 ```Bash
-$ chmod +x webserver.js 
+$ chmod +x webserver.js
 ```
 Conseguir `connect`, especificado en `package.json`
 ```Bash
