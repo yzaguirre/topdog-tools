@@ -1,6 +1,6 @@
 #!/bin/bash
 echo Waiting for client
-name="$(ncat -lp 55556)"
+name="$(ncat -4lp 55556)"
 PORT=55556
 TYPE=${name::1} # obtain first caracter from name
 name="${name:1}" # remove first caracter from name
@@ -8,8 +8,8 @@ msg="Client has responded with: "$name
 echo $msg
 notify-send "$msg" >& /dev/null
 if [ $TYPE == "d" ]; then
- ncat -lp $PORT | pv -t | tar xfv - # tar file
+ ncat -4lp $PORT | pv -t | tar xfv - # tar file
 else
- ncat -lp $PORT | pv -t > "$name" # obviously a regular file
+ ncat -4lp $PORT | pv -t > "$name" # obviously a regular file
 fi
-notify-send "Transfer recieved :)" >& /dev/null
+notify-send "Transfer received" >& /dev/null

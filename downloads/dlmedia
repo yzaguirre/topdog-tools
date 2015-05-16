@@ -1,0 +1,9 @@
+#!/bin/bash
+/usr/local/bin/podcast-bulk > $HOME/downloads/log_podcast3.log 2> $HOME/downloads/error_podcast.log
+/usr/local/bin/yt-me-bulk > $HOME/downloads/log_yt-me.log 2> $HOME/downloads/error_yt-me.log
+/usr/local/bin/yt-bulk > $HOME/downloads/log_yt.log 2> $HOME/downloads/error_yt.log
+/usr/local/bin/dl-bulk > $HOME/downloads/log_dl.log 2> $HOME/downloads/error_dl.log
+
+/usr/bin/sudo service transmission-daemon start
+/usr/local/bin/starttorrents > $HOME/downloads/log_starttorrent.log 2> $HOME/downloads/error_starttorrent.log 
+/usr/local/bin/tr-client > $HOME/downloads/log_trclient.log 2> $HOME/downloads/error_trclient.log

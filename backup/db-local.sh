@@ -1,10 +1,11 @@
 #!/bin/bash
+# saves mysql dump to bz2 file
 DBNAME=$1
 DBUSER=
 DBSERVER=
 DBPW=
 
-BCKP_DIR="/home/pi/backup/${SERVER}/${DBNAME}"
+BCKP_DIR="${HOME}/backup/${SERVER}/${DBNAME}"
 mkdir -p "${BCKP_DIR}"
 TIMESTAMP=`date +'%F_%H.%M.%S'`
 
@@ -14,4 +15,3 @@ BZ="/bin/bzip2 -9"
 DUMP="/usr/bin/mysqldump -h ${DBSERVER} -e -u ${DBUSER} -p${DBPW} $DBNAME"
 
 $DUMP | $BZ  > "${BCKP_DIR}/${BCKP_FILE}"
-

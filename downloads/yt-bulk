@@ -1,11 +1,10 @@
 #!/bin/bash
-# get youtube-dl tool at https://github.com/rg3/youtube-dl
-filename=~pi/downloads/yt.txt
-TMP=~pi/tmp
+filename=$HOME/downloads/yt.txt
+TMP=$HOME/tmp
 cd $TMP
 while read -r line
 do
     /usr/local/bin/youtube-dl $line -c
 done < "$filename"
-mv $TMP/*mp4 ~pi/downloads
-mv $filename ~pi/documents/past_dl/yt_`date +'%F_%H.%M.%S'`.txt
+mv $TMP/*mp4 $HOME/downloads
+mv $filename $HOME/documents/past_dl/yt_`date +'%F_%H.%M.%S'`.txt

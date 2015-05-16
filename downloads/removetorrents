@@ -1,8 +1,8 @@
 #!/usr/bin/env python
-# 1 0 * * * /usr/local/bin/removetorrents.py > /home/pi/downloads/log-tr.log 2> /home/pi/downloads/error-tr.log
+# 1 0 * * * /usr/local/bin/removetorrents.py > $HOME/downloads/log-tr.log 2> $HOME/downloads/error-tr.log
 import transmissionrpc
 
-tc = transmissionrpc.Client(address='raspberrypi.local', port=9091, user='pi', password='')
+tc = transmissionrpc.Client(address='', port=9091, user='', password='')
 torrents = tc.get_torrents()
 for torrent in torrents:
   if torrent.percentDone >= 1:
