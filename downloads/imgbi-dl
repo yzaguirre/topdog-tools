@@ -1,0 +1,7 @@
+#!/bin/bash
+filename=img.txt
+
+while read -r line
+do
+    imgbi-client -d "$line" -o .
+done < "$filename"
