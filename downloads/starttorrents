@@ -1,8 +1,8 @@
 #!/usr/bin/env python
-# 1 0 * * * /usr/local/bin/removetorrents.py > $HOME/downloads/log-tr.log 2> $HOME/downloads/error-tr.log
+# 1 0 * * * /usr/local/bin/starttorrents.py > $HOME/downloads/log-tr.log 2> $HOME/downloads/error-tr.log
 import transmissionrpc
 
-tc = transmissionrpc.Client(address='', port=9091, user='', password='')
+tc = transmissionrpc.Client(address='localhost', port=9091, user='', password='')
 torrents = tc.get_torrents()
 for torrent in torrents:
   if torrent.status == 'stopped':

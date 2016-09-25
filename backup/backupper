@@ -1,13 +1,11 @@
 #!/bin/bash
-#https://www.linuxquestions.org/questions/programming-9/how-to-add-multiple-flags-in-bash-script-760323/
-#https://stackoverflow.com/questions/7069682/how-to-get-arguments-with-flags-in-bash-script
 name=${1%/} # remove trailing slash
 comment=$2
 #shift 2
 #files=$@
 files=$name
-tarname=${name}_`date +'%F_%H.%M.%S'`_${comment}.tar.gz # old format %Y-%m-%d_%H.%M.%S
-backupdir=~/backup/$name
+tarname=${name}_`date +'%F_%H.%M.%S'`_${comment}.tar.gz
+backupdir=$HOME/backup/$name
 destination=$backupdir/$tarname
 if [! -d $backupdir ]; then
   mkdir -p $backupdir

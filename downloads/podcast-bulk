@@ -6,6 +6,6 @@ while read -r line
 do
     /usr/bin/wget -c "$line"
 done < "$filename"
-mv $TMP/*mp3 $HOME/videos/mobile
+mv -- $TMP/*mp3 $HOME/videos/mobile
 cd -
-mv $filename $HOME/documents/past_dl/podcast_`date +'%F_%H.%M.%S'`.txt
+mv -- $filename $HOME/documents/past_dl/podcast_`date +'%F_%H.%M.%S'`.txt
