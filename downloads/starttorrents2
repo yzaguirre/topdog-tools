@@ -1,0 +1,15 @@
+#!/usr/bin/env python
+# 1 0 * * * /usr/local/bin/starttorrents2.py > $HOME/downloads/log-tr2.log 2> $HOME/downloads/error-tr2.log
+from deluge_client import DelugeRPCClient
+import time
+
+tc = DelugeRPCClient(host='localhost', port=58846, username='', password='')
+tc.connect()
+torrents = tc.call('core.get_torrents_status', {}, ['name','state','total_size','time_added','total_payload_download'])
+for idtorrent,torrent in torrents.iteritems():
+    if torrent['state'] == 'Paused':
+        time_added = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(torrent['time_added']))
+        print "Started \"" + torrent['name'] + "\" (" + str(torrent['total_size']/1000000.0) + " MB), left "+ str(torrent['total_payload_download']/1000000.0) + " MB. Date Started: " + time_added + "."
+        tc.call('core.resume_torrent', [idtorrent])
+    else:
+        print "Torrent \"" + torrent['name'] + "\" (" + str(torrent['total_size']/1000000.0) + " MB) is in state \"" + torrent['state'] + "\"."

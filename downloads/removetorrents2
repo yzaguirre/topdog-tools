@@ -1,0 +1,17 @@
+#!/usr/bin/env python
+# 1 0 * * * /usr/local/bin/removetorrents2.py > $HOME/downloads/log-tr2.log 2> $HOME/downloads/error-tr2.log
+from deluge_client import DelugeRPCClient
+import time
+import datetime
+
+tc = DelugeRPCClient(host='localhost', port=58846, username='', password='')
+tc.connect()
+torrents = tc.call('core.get_torrents_status', {}, ['name','total_size','total_done','time_added','is_finished','eta','progress'])
+print torrents
+for idtorrent,torrent in torrents.iteritems():
+    if torrent['is_finished']:
+         time_added = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(torrent['time_added']))
+         print "Removed from queue \"" + torrent['name'] + "\" (" + str(torrent['total_size']/1000000.0) + " MB). Date Started: " + time_added + "."
+         tc.call('core.remove_torrent', idtorrent, False)
+    else:
+         print "Torrent \"" + torrent['name'] + "\" (" + str(torrent['total_size']/1000000.0) + " MB) has not finished download. Progress: " + str(torrent['progress']) + " %. ETA " + str(datetime.timedelta(seconds=torrent['eta']))

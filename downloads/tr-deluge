@@ -1,0 +1,20 @@
+#!/usr/bin/env python
+# 1 0 * * * /usr/local/bin/tr-deluge 2> $HOME/downloads/error-tr.log
+from subprocess import call
+import os
+from deluge_client import DelugeRPCClient
+path = os.environ['HOME'] + r"/downloads/tr.txt"
+if os.path.isfile(path):
+	tc = DelugeRPCClient(host='localhost', port=58846, username='', password='')
+	tc.connect()
+	destination = os.environ['HOME'] + r"/documents/past_dl/tr_`date +'%F_%H.%M.%S'`.txt"
+	f = open(path, "r")
+	text = f.readlines()
+	for line in text:
+		tc.call('core.add_torrent_url', line, [])
+	f.close()
+	tc.disconnect()
+	# move path file to temp
+	call("mv -v {0} {1} ".format(path, destination), shell=True)
+else:
+	print ('No torrents tonight!')
