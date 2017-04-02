@@ -1,0 +1,17 @@
+#!/bin/bash
+echo Waiting for client
+KEY=
+CERT=
+name="$(ncat --ssl-cert $CERT --ssl-key $KEY -4lp 55556)"
+PORT=55556
+TYPE=${name::1} # obtain first caracter from name
+name="${name:1}" # remove first caracter from name
+msg="Client has responded with: "$name
+echo $msg
+notify-send "$msg" >& /dev/null
+if [ $TYPE == "d" ]; then
+ ncat --ssl-cert $CERT --ssl-key $KEY -4lp $PORT | pv -t | tar xfv - # tar file
+else
+ ncat --ssl-cert $CERT --ssl-key $KEY -4lp $PORT | pv -t > "$name" # obviously a regular file
+fi
+notify-send "Transfer received" >& /dev/null

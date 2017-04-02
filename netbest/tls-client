@@ -1,0 +1,20 @@
+#!/bin/bash
+recipient=$1
+shift 1
+name="$@"
+PORT=55556
+if [ "$#" == "1" ] && [ -f "$name" ]; then
+ echo f${name} | ncat --ssl --send-only $recipient $PORT
+ stty -echo
+ read -n1 -r -p "Press any key to start transfer..." key
+ stty echo
+ echo
+ cat "$name" | pv -b | ncat --ssl --send-only $recipient $PORT
+else
+ echo d${name} | ncat --ssl --send-only $recipient $PORT
+ stty -echo
+ read -n1 -r -p "Press any key to start transfer..." key
+ stty echo
+ echo
+ tar cvf - -- ${name} | pv -b | ncat --ssl --send-only $recipient $PORT
+fi
