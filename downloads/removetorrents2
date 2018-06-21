@@ -6,8 +6,7 @@ import datetime
 
 tc = DelugeRPCClient(host='localhost', port=58846, username='', password='')
 tc.connect()
-torrents = tc.call('core.get_torrents_status', {}, ['name','total_size','total_done','time_added','is_finished','eta','progress'])
-print torrents
+torrents = tc.call('core.get_torrents_status', {}, ['name','total_size','time_added','is_finished','eta','progress'])
 for idtorrent,torrent in torrents.iteritems():
     if torrent['is_finished']:
          time_added = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(torrent['time_added']))
@@ -15,3 +14,4 @@ for idtorrent,torrent in torrents.iteritems():
          tc.call('core.remove_torrent', idtorrent, False)
     else:
          print "Torrent \"" + torrent['name'] + "\" (" + str(torrent['total_size']/1000000.0) + " MB) has not finished download. Progress: " + str(torrent['progress']) + " %. ETA " + str(datetime.timedelta(seconds=torrent['eta']))
+         tc.call('core.pause_torrent', [idtorrent])

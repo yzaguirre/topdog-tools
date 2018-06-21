@@ -1,0 +1,15 @@
+#!/bin/bash
+#Desc: Fetch gmail tool
+
+username='my@email.com'
+echo -e "Enter password: "
+stty -echo
+read password
+stty echo
+echo
+
+SHOW_COUNT=5 # No of recent unread mails to be shown
+
+echo
+
+curl  -u $username:$password --silent "https://mail.google.com/mail/feed/atom" 

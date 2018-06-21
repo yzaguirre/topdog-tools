@@ -5,11 +5,11 @@ import time
 
 tc = DelugeRPCClient(host='localhost', port=58846, username='', password='')
 tc.connect()
-torrents = tc.call('core.get_torrents_status', {}, ['name','state','total_size','time_added','total_payload_download'])
+torrents = tc.call('core.get_torrents_status', {}, ['name','state', 'is_finished','total_size','time_added'])
 for idtorrent,torrent in torrents.iteritems():
-    if torrent['state'] == 'Paused':
-        time_added = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(torrent['time_added']))
-        print "Started \"" + torrent['name'] + "\" (" + str(torrent['total_size']/1000000.0) + " MB), left "+ str(torrent['total_payload_download']/1000000.0) + " MB. Date Started: " + time_added + "."
-        tc.call('core.resume_torrent', [idtorrent])
-    else:
+    if torrent['is_finished']:
         print "Torrent \"" + torrent['name'] + "\" (" + str(torrent['total_size']/1000000.0) + " MB) is in state \"" + torrent['state'] + "\"."
+    else:
+        time_added = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(torrent['time_added']))
+        print "Started \"" + torrent['name'] + "\" (" + str(torrent['total_size']/1000000.0) + " MB). Date Started: " + time_added + "."
+        tc.call('core.resume_torrent', [idtorrent])
