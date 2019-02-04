@@ -40,13 +40,13 @@ descargar360(){
 descargar720(){
 	echo "Descargar 720"
 	cd $VIDEO_DIR
-	youtube-dl -f 22 "$VIDEO_LINK"
+	youtube-dl -f 22/18 "$VIDEO_LINK"
         pause
 }
 descargar1080(){
 	echo "Descargar 1080"
 	cd $VIDEO_DIR
-	youtube-dl -f 137+140 "$VIDEO_LINK"
+	youtube-dl -f 137+140/22/18 "$VIDEO_LINK"
         pause
 }
 descargarm4aRemote(){
