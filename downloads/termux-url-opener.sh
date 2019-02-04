@@ -61,12 +61,12 @@ descargar360Remote(){
 }
 descargar720Remote(){
 	echo "Descargar 720 Remote"
-	ssh do "cd '$VIDEO_REMOTE_DIR' || exit; youtube-dl -f 22 '$VIDEO_LINK'"
+	ssh do "cd '$VIDEO_REMOTE_DIR' || exit; youtube-dl -f 22/18 '$VIDEO_LINK'"
         pause
 }
 descargar1080Remote(){
 	echo "Descargar 1080 Remote"
-	ssh do "cd '$VIDEO_REMOTE_DIR' || exit; youtube-dl -f 137+140 '$VIDEO_LINK'"
+	ssh do "cd '$VIDEO_REMOTE_DIR' || exit; youtube-dl -f 137+140/22/18 '$VIDEO_LINK'"
         pause
 }
 
