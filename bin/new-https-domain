@@ -1,0 +1,51 @@
+#!/bin/bash
+SITE_FOLDER=/var/www/$1
+DOMAIN=$2
+mkdir /etc/apache2/tls
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/apache2/tls/${DOMAIN}.key -out /etc/apache2/tls/${DOMAIN}.crt
+cat <<CONF > /etc/apache2/sites-available/${DOMAIN}-tls.conf
+<IfModule mod_ssl.c>
+	<VirtualHost _default_:443>
+		ServerAdmin webmaster@localhost
+		ServerName ${DOMAIN}
+		ServerAlias www.${DOMAIN}
+		DocumentRoot ${SITE_FOLDER}
+		ErrorLog \${APACHE_LOG_DIR}/error.log
+		CustomLog \${APACHE_LOG_DIR}/access.log combined
+		SSLEngine on
+		SSLCertificateFile /etc/apache2/tls/${DOMAIN}.crt
+		SSLCertificateKeyFile /etc/apache2/tls/${DOMAIN}.key
+
+		BrowserMatch "MSIE [2-6]" \
+		nokeepalive ssl-unclean-shutdown \
+		downgrade-1.0 force-response-1.0
+		# MSIE 7 and newer should be able to use keepalive
+		BrowserMatch "MSIE [17-9]" ssl-unclean-shutdown  into CGI scripts.
+		<FilesMatch "\.(cgi|shtml|phtml|php)$">
+			SSLOptions +StdEnvVars
+		</FilesMatch>
+		<Directory /usr/lib/cgi-bin>
+			SSLOptions +StdEnvVars
+		</Directory>
+		BrowserMatch "MSIE [2-6]" \
+		nokeepalive ssl-unclean-shutdown \
+		downgrade-1.0 force-response-1.0
+		# MSIE 7 and newer should be able to use keepalive
+		BrowserMatch "MSIE [17-9]" ssl-unclean-shutdown
+	</VirtualHost>
+</IfModule>
+CONF
+cat <<CONF > /etc/apache2/sites-available/${DOMAIN}.conf
+<VirtualHost *:80>
+	ServerName ${DOMAIN}
+	ServerAdmin webmaster@localhost
+	Redirect permanent / https://${DOMAIN}
+	ErrorLog \${APACHE_LOG_DIR}/error.log
+    CustomLog \${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+CONF
+chmod 400 /etc/apache2/tls/${DOMAIN}.*
+a2enmod ssl
+a2ensite ${DOMAIN}-tls.conf
+a2ensite ${DOMAIN}.conf
+service apache2 restart

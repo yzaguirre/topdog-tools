@@ -1,0 +1,16 @@
+#!/bin/bash
+# scp wp ec2:bin
+# descargar wordpress
+cd downloads
+wget http://wordpress.org/latest.tar.gz
+sudo tar xf latest.tar.gz -C /var/www
+sudo mv /var/www/wordpress /var/www/${1}
+sudo chown www-data:www-data -R /var/www/${1}
+
+# mysql
+mysql -u root -p -e "CREATE DATABASE ${1}; \
+GRANT ALL ON ${1}.* TO ${1}@'localhost' IDENTIFIED BY 'Uu7z6b4iQPTKpcxP'; \
+FLUSH PRIVILEGES;"
+
+#cat <<EOF | ssh ec2 "cat > deploy.sh && bash deploy.sh"
+#EOF

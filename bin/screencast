@@ -1,0 +1,2 @@
+#!/bin/bash
+clear;recordmydesktop -x 0 -y 0 --width 1280 --height 720 --fps 15 --delay 1 --no-frame -o "/VMs/videos/$1.ogv"

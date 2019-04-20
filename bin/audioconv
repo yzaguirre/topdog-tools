@@ -1,0 +1,9 @@
+#!/bin/bash
+#source=Memo.m4a
+source=$1
+#destination=test.flac
+destination=$2
+ffmpeg -i $source -vn -ac 1 -ar 16000 -acodec libvorbis $destination
+#ffmpeg -i $source -vn -ac 1 -ar 16000 -acodec libvorbis $destination
+#ffmpeg -i $source -vn -ac 1 -ar 16000 -acodec libmp3lame $destination
+#ffmpeg -i $source -vn -ac 1 -ar 16000 -acodec libx264rgb $destination

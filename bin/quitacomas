@@ -23,6 +23,8 @@ for path in "$@" ; do
 
     # Modify "$new" to suit your needs. Dots to spaces:
     new="${new//,/.}"
+    #new="${new//_/ }"
+    #new="${new//./ }"
 
     if [ "$new" != "$old" ]; then
         mv -vi "$dir/$old$ext" "$dir/$new$ext" || exit $?

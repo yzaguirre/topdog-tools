@@ -1,0 +1,4 @@
+#!/bin/bash
+function givemeqr(){
+	echo $1 | qrencode -o - -t UTF8
+}
