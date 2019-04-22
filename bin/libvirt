@@ -1,0 +1,7 @@
+#!/bin/bash
+function startvirtualizaion(){
+	sudo systemctl start libvirtd.service libvirt-guests.service
+}
+function stopvirtualizaion(){
+	sudo systemctl stop libvirtd.service libvirt-guests.service
+}

@@ -1,0 +1,8 @@
+#!/bin/bash
+filename=dl.txt
+while read -r line
+do
+    echo "${line##*/}"
+    curl -o "${line##*/}" "$line"
+done < "$filename"
+#mv $filename $HOME/documents/past_dl/dl_`date +'%F_%H.%M.%S'`.txt

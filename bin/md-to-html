@@ -1,0 +1,6 @@
+#!/bin/bash
+for f in $(find . -maxdepth 4 -name '*.md'); do
+
+pandoc "$f" -f markdown -t html5 -s -o "${f%.*}.html"
+
+done

@@ -1,0 +1,15 @@
+#!/bin/basecho convert -resize 10% {entrada} {salida}
+filename=reducirimg.txt
+while read -r line
+do
+  if [ `identify -ping -format "%h" "$line" 2> /dev/null` -ge 1000 ]
+  then
+    mogrify -resize 40% $line
+  #  echo hello
+  #  cp -v "$line" img
+  #else
+  #  echo done
+  fi
+done < "$filename"
+#mv -- $TMP/*mp4 $HOME/downloads
+#mv -- $filename $HOME/documents/past_dl/yt_`date +'%F_%H.%M.%S'`.txt

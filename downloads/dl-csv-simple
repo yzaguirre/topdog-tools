@@ -1,0 +1,5 @@
+#!/bin/bash
+while IFS=+ read name url
+do
+    wget -O "$name" "$url"
+done < dl.csv

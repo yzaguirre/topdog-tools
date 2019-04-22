@@ -4,7 +4,7 @@ TMP=$HOME/tmp
 cd $TMP
 while read -r line
 do
-    /usr/local/bin/youtube-dl $line -c
+    /usr/local/bin/youtube-dl $line -cf 137+140/22/18
 done < "$filename"
 mv -- $TMP/*mp4 $HOME/downloads
 mv -- $filename $HOME/documents/past_dl/yt_`date +'%F_%H.%M.%S'`.txt

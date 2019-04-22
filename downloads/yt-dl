@@ -3,5 +3,5 @@ filename=yt.txt
 
 while read -r line
 do
-  /usr/local/bin/youtube-dl -f 22/18 $line
+  /usr/local/bin/youtube-dl -f 137+140/22/18 $line
 done < "$filename"
