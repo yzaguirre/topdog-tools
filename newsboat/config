@@ -1,0 +1,3 @@
+macro y set browser "nb-savelink.sh '%u'" ; open-in-browser ; set browser "$BROWSER %u"
+macro u set browser "nb-turn-to-csv.sh" ; open-in-browser ; set browser "$BROWSER %u"
+itemview-title-format "%N %V - Article '%T' (%u unread, %t total)"
