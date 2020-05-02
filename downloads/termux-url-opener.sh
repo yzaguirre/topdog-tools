@@ -62,6 +62,12 @@ descargar2160(){
 	youtube-dl -4f 313+251/271+251/137+140/136+140/247+251/22/18 "$VIDEO_LINK"
         pause
 }
+descargarAutomatic(){
+	echo "Automatic"
+	cd $VIDEO_DIR
+	youtube-dl -4 "$VIDEO_LINK"
+        pause
+}
 descargarm4aRemote(){
 	echo "Descargar m4a (44100Hz) Remote"
 	ssh do "cd '$VIDEO_REMOTE_DIR' || exit; youtube-dl -4f 140 '$VIDEO_LINK'"
@@ -110,6 +116,14 @@ descargar2160Remote(){
   termux-toast "Copied to clipboard: ${DOWNLOAD_LINK}"
         pause
 }
+descargarAutomaticRemote(){
+	echo "Automatic Remote"
+	ssh do "cd '$VIDEO_REMOTE_DIR' || exit; youtube-dl -4 '$VIDEO_LINK'"
+  DOWNLOAD_LINK=${MEDIA_REMOTE_LINK}$(youtube-dl --get-filename -4 "$VIDEO_LINK")
+  termux-clipboard-set ${DOWNLOAD_LINK}
+  termux-toast "Copied to clipboard: ${DOWNLOAD_LINK}"
+        pause
+}
 
 # function to display menus
 show_menus() {
@@ -120,15 +134,17 @@ show_menus() {
 	echo "1. Descargar m4a  (44100Hz)"
 	echo "2. Descargar 360  (640x338)"
 	echo "3. Descargar 720  (1280x676)"
-  echo "4. Descargar 1080 (1920x1012)"
-  echo "5. Descargar 1440 (2560x1350)"
+	echo "4. Descargar 1080 (1920x1012)"
+	echo "5. Descargar 1440 (2560x1350)"
 	echo "6. Descargar 2160 (3840x2026)"
+	echo "7. Automatic"
 	echo "q. Descargar m4a  (44100Hz)   remote"
 	echo "w. Descargar 360  (640x338)   remote"
 	echo "e. Descargar 720  (1280x676)  remote"
-echo "r. Descargar 1080 (1920x1012) remote"
-  echo "t. Descargar 1440 (2560x1350) remote"
+	echo "r. Descargar 1080 (1920x1012) remote"
+	echo "t. Descargar 1440 (2560x1350) remote"
 	echo "y. Descargar 2160 (3840x2026) remote"
+	echo "u. Automatic remote"
 	echo "7. Exit"
 }
 # read input from the keyboard and take a action
@@ -142,15 +158,17 @@ read_options(){
 		1) descargarm4a ;;
 		2) descargar360 ;;
 		3) descargar720 ;;
-    4) descargar1080 ;;
-    5) descargar1440 ;;
+		4) descargar1080 ;;
+		5) descargar1440 ;;
 		6) descargar2160 ;;
+		7) descargarAutomatic ;;
 		q) descargarm4aRemote ;;
 		w) descargar360Remote ;;
 		e) descargar720Remote ;;
-    r) descargar1080Remote ;;
-    t) descargar1440Remote ;;
+		r) descargar1080Remote ;;
+		t) descargar1440Remote ;;
 		y) descargar2160Remote ;;
+		u) descargarAutomaticRemote ;;
 		7) exit 0;;
 		*) echo -e "${RED}Error...${STD}" && sleep 2
 	esac
