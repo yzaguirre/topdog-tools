@@ -145,7 +145,7 @@ show_menus() {
 	echo "t. Descargar 1440 (2560x1350) remote"
 	echo "y. Descargar 2160 (3840x2026) remote"
 	echo "u. Automatic remote"
-	echo "7. Exit"
+	echo "8. Exit"
 }
 # read input from the keyboard and take a action
 # invoke the one() when the user select 1 from the menu option.
@@ -153,7 +153,7 @@ show_menus() {
 # Exit when user the user select 3 form the menu option.
 read_options(){
 	local choice
-	read -p "Enter choice [ 1 - 7 qwerty ] " choice
+	read -p "Enter choice [ 1 - 8 qwerty ] " choice
 	case $choice in
 		1) descargarm4a ;;
 		2) descargar360 ;;
@@ -169,7 +169,7 @@ read_options(){
 		t) descargar1440Remote ;;
 		y) descargar2160Remote ;;
 		u) descargarAutomaticRemote ;;
-		7) exit 0;;
+		8) exit 0;;
 		*) echo -e "${RED}Error...${STD}" && sleep 2
 	esac
 }
